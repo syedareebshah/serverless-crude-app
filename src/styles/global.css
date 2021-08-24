@@ -1,0 +1,66 @@
+.main{
+    max-width: 400px;
+    background: rgb(253, 32, 32);
+    margin: 0 auto;
+    box-shadow: 1px 5px 11px 1px olivedrab;
+    text-align: center;
+    padding-bottom: 10px ;
+}
+.innerDiv{
+    color: white;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.323);
+}
+
+h3{
+    color: white;
+    background-color: rgba(0, 0, 0, 0.344);
+    padding: 10px;
+    margin: 20px 15%;
+    border-radius: 4px;
+}
+
+input{
+    margin-top: 20px;
+    outline: double;
+    font-size: 1em;
+    color: rgb(0, 0, 0);
+    padding: 5px 10px;
+}
+.add{
+    width: 45%;
+    color: white;
+    padding: 3px 5px;
+    background: darkmagenta;
+    outline: double;
+    outline-color: cornflowerblue;
+}
+.del{
+    margin: 0px 5px 0px 5px;
+    padding: 3px 5px;
+    background: red;
+    outline: double;
+    outline-color: cornflowerblue;
+}
+.del:hover{
+    background: rgb(242, 65, 65);
+}
+.update{
+    margin: 0px 5px 0px 5px;
+    padding: 3px 5px;
+    background: rgb(179, 255, 0);
+    outline: double;
+    outline-color: cornflowerblue;
+
+}
+.update:hover{
+    background: rgb(216, 250, 92);
+}
+.add:hover{
+    background: rgb(94, 36, 94);
+}
+
+.err{
+    padding: 5px;
+    color: yellow;
+}

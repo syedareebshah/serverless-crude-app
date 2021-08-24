@@ -3,24 +3,21 @@ import { Formik } from 'formik';
 
 
 const IndexPage = () => {
-
   const [task, setTask] = useState([])
-  const [effect, setEffect] = useState(false)
+  const [start, setStart] = useState(true)
+
 
 
   useEffect(() => {
-    // fetch(`/.netlify/functions/update`)
-    //   .then((res)=>res.json())
-    //   .then((data)=>{
-    //     console.log(data);
-    //   })
     const fetchData = async () => {
       const data = await readData();
       setTask(data);
-      setEffect(true)
     };
     fetchData();
-  }, [task]);
+    setStart(true)
+  }, [start]);
+
+
 
   const readData = async () => {
     return await fetch(`/.netlify/functions/readtask`)
@@ -39,26 +36,26 @@ const IndexPage = () => {
         res.json();
       })
       .then((data) => {
+        setStart(false)
         return data;
       })
       .catch((error) => `error here : ${error}`);
-
   }
 
-  const updateitem = async (id,x) => {
-    console.log(id,x);
+  const updateitem = async (id, x) => {
+    console.log(id, x);
     await fetch(`/.netlify/functions/update`, {
       method: "PUT",
-      body: JSON.stringify({id,x}),
+      body: JSON.stringify({ id, x }),
     })
       .then((res) => {
         res.json();
       })
       .then((data) => {
+        setStart(false)
         return data;
       })
       .catch((error) => `error here : ${error}`);
-
   }
 
 
@@ -66,8 +63,11 @@ const IndexPage = () => {
 
 
   return (
-    <div>
-      <h1>Todo</h1>
+    <div className='main'>
+      <div className='innerDiv'>
+        <h2>Serverless Crud App</h2>
+        <h2>gatsby-netlify functions-funaDb</h2>
+      </div>
 
       <Formik
         initialValues={{ message: '' }}
@@ -79,15 +79,13 @@ const IndexPage = () => {
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(values);
           fetch(`/.netlify/functions/add_task`, {
             method: 'post',
             body: JSON.stringify(values)
           })
             .then(response => response.json())
             .then(data => {
-              console.log(data, "ok");
-
+              setStart(false)
             });
         }}
       >
@@ -110,10 +108,11 @@ const IndexPage = () => {
               placeholder='Enter task'
             />
             <br />
-            {errors.message && touched.message && errors.message}
-            <br />
-
-            <button type="submit">
+            <div className='err'>
+              {errors.message && touched.message && errors.message}
+              <br />
+            </div>
+            <button className='add' type="submit">
               Add task
             </button>
           </form>
@@ -123,21 +122,22 @@ const IndexPage = () => {
       {
         task.map((o, i) => {
           return (
+
             <h3 key={i}>{o.data.detail}
 
-              <button onClick={() => {
+              <button className='del' onClick={() => {
                 delitem(o.ref["@ref"].id)
-              }}>del</button>
+              }}>Delete</button>
 
-              <button onClick={() => {
+              <button className='update' onClick={() => {
                 var x = prompt("enter updated")
-                if (x===''){
+                if (x === '') {
                   alert("Please Enter Task")
                 }
-                else{
-                  updateitem(o.ref["@ref"].id,x)
+                else {
+                  updateitem(o.ref["@ref"].id, x)
                 }
-              }}>update</button>
+              }}>Update</button>
 
 
             </h3>

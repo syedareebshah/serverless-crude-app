@@ -13,7 +13,6 @@ const handler = async (event) => {
         { data: { detail: reqObj.x } },
       )
     )
-    // const subject = event.queryStringParameters.name || 'World'
     return {
       statusCode: 200,
       body: JSON.stringify(result),

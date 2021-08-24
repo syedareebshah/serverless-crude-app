@@ -15,12 +15,6 @@ const handler = async (event) => {
       )
     )
 
-    // var result = await client.query(
-    //   q.Get(q.Ref(q.Collection('posts'), '307709690605734468'))
-    // );
-    // console.log(result);
-
-    // const subject = event.queryStringParameters.name || 'World'
     return {
       statusCode: 200,
       body: JSON.stringify({ message: result.ref.id }),

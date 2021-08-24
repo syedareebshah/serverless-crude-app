@@ -16,9 +16,7 @@ const handler = async (event) => {
       )
     )
 
-    // console.log(result)
 
-    // const subject = event.queryStringParameters.name || 'World'
     return {
       statusCode: 200,
       body: JSON.stringify(result.data),
