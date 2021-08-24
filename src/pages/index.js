@@ -9,21 +9,18 @@ const IndexPage = () => {
 
 
   useEffect(() => {
-    // fetch(`/.netlify/functions/readtask`)
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     setTask([...data]);
-    //     console.log("Data: " + data);
-
-    //   });
-
+    // fetch(`/.netlify/functions/update`)
+    //   .then((res)=>res.json())
+    //   .then((data)=>{
+    //     console.log(data);
+    //   })
     const fetchData = async () => {
       const data = await readData();
       setTask(data);
       setEffect(true)
     };
-    fetchData(); 
-  }, [effect]);
+    fetchData();
+  }, [task]);
 
   const readData = async () => {
     return await fetch(`/.netlify/functions/readtask`)
@@ -33,8 +30,7 @@ const IndexPage = () => {
       });
   };
 
-  const delitem = async (id)=>{
-    
+  const delitem = async (id) => {
     await fetch(`/.netlify/functions/deltask`, {
       method: "DELETE",
       body: JSON.stringify(id),
@@ -49,13 +45,29 @@ const IndexPage = () => {
 
   }
 
-  
+  const updateitem = async (id,x) => {
+    console.log(id,x);
+    await fetch(`/.netlify/functions/update`, {
+      method: "PUT",
+      body: JSON.stringify({id,x}),
+    })
+      .then((res) => {
+        res.json();
+      })
+      .then((data) => {
+        return data;
+      })
+      .catch((error) => `error here : ${error}`);
+
+  }
+
+
 
 
 
   return (
     <div>
-      <h1>hy</h1>
+      <h1>Todo</h1>
 
       <Formik
         initialValues={{ message: '' }}
@@ -111,9 +123,24 @@ const IndexPage = () => {
       {
         task.map((o, i) => {
           return (
-            <h3 key={i}>{o.data.detail} <button onClick={()=>{
-              delitem(o.ref["@ref"].id)
-            }}>del</button></h3>
+            <h3 key={i}>{o.data.detail}
+
+              <button onClick={() => {
+                delitem(o.ref["@ref"].id)
+              }}>del</button>
+
+              <button onClick={() => {
+                var x = prompt("enter updated")
+                if (x===''){
+                  alert("Please Enter Task")
+                }
+                else{
+                  updateitem(o.ref["@ref"].id,x)
+                }
+              }}>update</button>
+
+
+            </h3>
           )
         })
       }
