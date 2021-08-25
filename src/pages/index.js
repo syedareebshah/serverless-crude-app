@@ -7,7 +7,6 @@ const IndexPage = () => {
   const [start, setStart] = useState(true)
 
 
-
   useEffect(() => {
     const fetchData = async () => {
       const data = await readData();

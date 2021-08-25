@@ -19,6 +19,7 @@
     "faunadb": "^4.3.0",
     "formik": "^2.2.9",
     "gatsby": "^3.11.1",
+    "netlify-cli": "^6.7.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   }
