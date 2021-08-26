@@ -6,7 +6,6 @@ const IndexPage = () => {
   const [task, setTask] = useState([])
   const [start, setStart] = useState(true)
 
-
   useEffect(() => {
     const fetchData = async () => {
       const data = await readData();
